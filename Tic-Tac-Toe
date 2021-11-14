@@ -1,0 +1,89 @@
+options = [' ' for i in range(9)]
+computer = list(4 * 'X')
+player = list(5 * 'O')
+rows = [options[0:3], options[3:6], options[6:9]]
+columns = [options[0::3], options[1::3], options[2::3]]
+diagonals = [options[0::4], options[2:7:2]]
+print("---------")
+for row in rows:
+    print(f"| {row[0]} {row[1]} {row[2]} |")
+print("---------")
+coordinates = [(str(i),str(j)) for i in range(1,4) for j in range(1,4)]
+dictionary = {coordinates[i]:options[i] for i in range(len(coordinates))}
+while True: 
+    km = [v for i, v in enumerate(dictionary.values()) ]
+    if km[0] == km[1] == km[2] == 'X' or km[3] == km[4] == km[5] == 'X' or km[6] == km[7] == km[8] == 'X':
+        print('X wins')
+        break
+    elif km[0] == km[3] == km[6] == 'X' or km[1] == km[4] == km[7] == 'X' or km[2] == km[5] == km[8] == 'X':
+        print('X wins')
+        break 
+    elif km[2] == km[4] == km[6] == 'X' or km[0] == km[4] == km[8] == 'X':
+        print('X wins')
+        break
+    elif km[0] == km[1] == km[2] == 'O' or km[3] == km[4] == km[5] == 'O' or km[6] == km[7] == km[8] == 'O':
+        print('O wins')
+        break
+    elif km[0] == km[3] == km[6] == 'O' or km[1] == km[4] == km[7] == 'O' or km[2] == km[5] == km[8] == 'O':
+        print('O wins')
+        break 
+    elif km[2] == km[4] == km[6] == 'O' or km[0] == km[4] == km[8] == 'O':
+        print('O wins')
+        break
+    else:
+        if ' ' not in dictionary.values():
+            print('Draw')
+            break
+    if len(player) > len(computer):
+        command = input('Enter the coordinates:').split(' ')
+        com = tuple(command)
+        q = [x for x in command]
+        for z in q:
+            if z.isnumeric():
+                if int(z) not in range(1, 4):
+                    print('Coordinates should be from 1 to 3!')
+                    break
+            else:
+                print("You should enter numbers!")
+                break
+        if com in dictionary:
+            if dictionary[com] != ' ':
+                print('This cell is occupied! Choose another one!')
+                continue
+            else:
+                dictionary.update({com:'X'})
+                a = list(dictionary.values())
+                a_rows = [a[:3], a[3:6], a[6:]]
+                print("---------")
+                for row in a_rows:
+                    print(f"| {row[0]} {row[1]} {row[2]} |")
+                print("---------")
+                player.pop()
+        continue
+
+    else:
+        command = input('Enter the coordinates:').split(' ')
+        com = tuple(command)
+        q = [x for x in command]
+        for z in q:
+            if z.isnumeric():
+                if int(z) not in range(1, 4):
+                    print('Coordinates should be from 1 to 3!')
+                    break
+            else:
+                print("You should enter numbers!")
+                break
+        if com in dictionary:
+            if dictionary[com] != ' ':
+                print('This cell is occupied! Choose another one!')
+                continue
+            else:
+                dictionary.update({com:'O'})
+                a = list(dictionary.values())
+                a_rows = [a[:3], a[3:6], a[6:]]
+                print("---------")
+                for row in a_rows:
+                    print(f"| {row[0]} {row[1]} {row[2]} |")
+                print("---------")
+                computer.pop()
+        continue
